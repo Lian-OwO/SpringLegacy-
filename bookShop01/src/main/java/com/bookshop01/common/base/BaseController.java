@@ -25,7 +25,7 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 import com.bookshop01.goods.vo.ImageFileVO;
 
 public abstract class BaseController  {
-	private static final String CURR_IMAGE_REPO_PATH = "C:\\shopping\\file_repo";
+	private static final String CURR_IMAGE_REPO_PATH = "/Users/enril/upload/shopping/file_repo";
 	
 	protected List<ImageFileVO> upload(MultipartHttpServletRequest multipartRequest) throws Exception{
 		List<ImageFileVO> fileList= new ArrayList<ImageFileVO>();
@@ -39,21 +39,21 @@ public abstract class BaseController  {
 			imageFileVO.setFileName(originalFileName);
 			fileList.add(imageFileVO);
 			
-			File file = new File(CURR_IMAGE_REPO_PATH +"\\"+ fileName);
+			File file = new File(CURR_IMAGE_REPO_PATH +"/"+ fileName);
 			if(mFile.getSize()!=0){ //File Null Check
 				if(! file.exists()){ //��λ� ������ �������� ���� ���
 					if(file.getParentFile().mkdirs()){ //��ο� �ش��ϴ� ���丮���� ����
 							file.createNewFile(); //���� ���� ����
 					}
 				}
-				mFile.transferTo(new File(CURR_IMAGE_REPO_PATH +"\\"+"temp"+ "\\"+originalFileName)); //�ӽ÷� ����� multipartFile�� ���� ���Ϸ� ����
+				mFile.transferTo(new File(CURR_IMAGE_REPO_PATH +"/"+"temp"+ "/"+originalFileName)); //�ӽ÷� ����� multipartFile�� ���� ���Ϸ� ����
 			}
 		}
 		return fileList;
 	}
 	
 	private void deleteFile(String fileName) {
-		File file =new File(CURR_IMAGE_REPO_PATH+"\\"+fileName);
+		File file =new File(CURR_IMAGE_REPO_PATH+"/"+fileName);
 		try{
 			file.delete();
 		}catch(Exception e){
